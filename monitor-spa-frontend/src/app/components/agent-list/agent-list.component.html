@@ -1,0 +1,10 @@
+<div class="agent-list__parent">
+  <div class="agent-list__container">
+    <div class="agent-list__child mb-5" *ngFor="let agent of agents">
+      <div class="container-fluid">
+        <app-agent [firstName]="agent.firstName" [lastName]="agent.lastName"></app-agent>
+        <app-conversation-list [conversations]="agent.conversations"></app-conversation-list>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.conversation {
+
+  .row {
+    height: 40px;
+    align-items: center;
+
+    &.new {
+      background: rgba(12, 148, 235, 0.2);
+      border-radius: 49px; // figma
+    }
+  }
+
+  &__badge {
+    color: #FFFFFF; // figma
+    background: #0C94EB; // figma
+    font-weight: 500; // figma
+    line-height: 15px; // figma
+  }
+}

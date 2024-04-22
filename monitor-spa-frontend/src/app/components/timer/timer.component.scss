@@ -1,0 +1,25 @@
+.timer {
+  border-radius: 49px; // figma
+  font-weight: bold; // figma
+  text-align: center; // figma
+
+  &.on-time {
+    color: rgba(0, 201, 123, 1); // figma
+    background: rgba(0, 201, 123, 0.2); // figma
+
+    &.new {
+      color: #FFFFFF; // figma
+      background: rgba(0, 201, 123, 1); // figma
+    }
+  }
+
+  &.too-late {
+    color: rgba(255, 73, 84, 1); // figma
+    background: rgba(255, 73, 84, 0.2); // figma
+
+    &.new {
+      color: #FFFFFF; // figma
+      background: rgba(255, 73, 84, 1); // figma
+    }
+  }
+}

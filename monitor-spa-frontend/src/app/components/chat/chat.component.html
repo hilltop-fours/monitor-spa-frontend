@@ -1,0 +1,14 @@
+<div class="container-fluid vh-100">
+  <div class="row">
+
+    <div class="col-8 customer-awaiting-response">
+      <app-awaiting-response [header]="'Customer Awaiting Response'"
+        [agents]="customerAwaitingResponse"></app-awaiting-response>
+    </div>
+
+    <div class="col-4 csr-awaiting-response">
+      <app-awaiting-response [header]="'CSR Awaiting Response'" [agents]="csrAwaitingResponse"></app-awaiting-response>
+    </div>
+
+  </div>
+</div>

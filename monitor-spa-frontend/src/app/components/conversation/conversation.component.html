@@ -1,0 +1,21 @@
+<div class="container-fluid conversation pl-1 pr-1">
+
+  <div class="row mb-1" [ngClass]="{'new': conversationIsNew}">
+
+    <div class="col-3">
+      <app-timer [lastUpdatedDateTime]="lastUpdatedDateTime" [isNew]="conversationIsNew"></app-timer>
+    </div>
+
+    <div class="col-7">
+      <span class="conversation__full-name">{{fullName}}</span>
+    </div>
+
+    <div class="col-2">
+      <span class="conversation__badge badge text-uppercase">
+        <ng-template [ngIf]="conversationIsNew">New</ng-template>
+      </span>
+    </div>
+
+  </div>
+
+</div>

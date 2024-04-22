@@ -1,0 +1,23 @@
+.agent-list {
+
+  // The container and parent both need a height of 100%, otherwise the child will not stay within the bounds of customer-awaiting-response.
+  &__container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start; // align-content is used to prevent the columns from positioning unintentionally when there are not enough items to create three columns.
+    height: 100%;
+  }
+
+  &__parent {
+    height: 100%; // Adjust for the height of the title
+  }
+}
+
+.customer-awaiting-response .agent-list__child {
+  width: calc(100% / 3); // Combined with align-content. The amount of desired columns.
+}
+
+.csr-awaiting-response .agent-list__child {
+  width: calc(100% / 1); // Combined with align-content. The amount of desired columns.
+}

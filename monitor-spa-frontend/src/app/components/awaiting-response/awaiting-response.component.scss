@@ -1,0 +1,17 @@
+$title-height: 50px;
+
+.awaiting-response {
+  height: calc(100vh - 100px); // Adjust for the height of the footer.
+
+  &__title {
+    font-style: normal; // figma
+    font-weight: 500; // figma
+    font-size: 26px; // figma
+    line-height: 32px; // figma
+    height: $title-height;
+  }
+
+  &__agent-list {
+    height: calc(100% - #{$title-height}); // Adjust for the height of the title
+  }
+}

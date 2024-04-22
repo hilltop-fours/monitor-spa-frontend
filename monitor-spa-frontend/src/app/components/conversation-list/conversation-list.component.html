@@ -1,0 +1,5 @@
+<div *ngFor="let conversation of conversations">
+  <app-conversation [fullName]="conversation.fullName" [answerState]="conversation.answerState"
+    [lastUpdatedDateTime]="conversation.lastUpdatedDateTime">
+  </app-conversation>
+</div>

@@ -1,0 +1,131 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+    - feature/*
+    - develop
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+
+# install
+- task: Npm@0
+  displayName: 'npm install angular'
+  inputs:
+    command: 'install'
+    arguments: '-g @angular/cli'
+
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    command: 'install'
+    workingDir: 'monitor-spa-frontend'
+    verbose: false
+
+# validate
+- task: Npm@1
+  displayName: 'npm lint'
+  inputs:
+    command: 'custom'
+    workingDir: 'monitor-spa-frontend'
+    customCommand: 'run lint'
+    
+- task: Npm@1
+  displayName: 'npm test'
+  inputs:
+    command: 'custom'
+    workingDir: 'monitor-spa-frontend'
+    customCommand: 'run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI'
+
+# Azure Resource Manager
+- task: CopyFiles@2
+  displayName: 'copy deployment files'
+  inputs:
+    SourceFolder: '$(Build.Repository.LocalPath)/deployment'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/deployment'
+
+# dev
+- task: Npm@1
+  displayName: 'npm build dev'
+  inputs:
+    command: 'custom'
+    workingDir: 'monitor-spa-frontend'
+    customCommand: 'run build-dev'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files dev'
+  inputs:
+    rootFolderOrFile: 'monitor-spa-frontend/dist/monitor-spa-frontend'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/dev/monitor-spa-frontend.zip'
+    replaceExistingArchive: true
+
+# tst
+- task: Npm@1
+  displayName: 'npm build tst'
+  inputs:
+    command: 'custom'
+    workingDir: 'monitor-spa-frontend'
+    customCommand: 'run build-tst'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files tst'
+  inputs:
+    rootFolderOrFile: 'monitor-spa-frontend/dist/monitor-spa-frontend'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/tst/monitor-spa-frontend.zip'
+    replaceExistingArchive: true
+
+# acc
+- task: Npm@1
+  displayName: 'npm build acc'
+  inputs:
+    command: 'custom'
+    workingDir: 'monitor-spa-frontend'
+    customCommand: 'run build-acc'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files acc'
+  inputs:
+    rootFolderOrFile: 'monitor-spa-frontend/dist/monitor-spa-frontend'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/acc/monitor-spa-frontend.zip'
+    replaceExistingArchive: true
+
+# prod
+- task: Npm@1
+  displayName: 'npm build prod'
+  inputs:
+    command: 'custom'
+    workingDir: 'monitor-spa-frontend'
+    customCommand: 'run build-prod'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files prod'
+  inputs:
+    rootFolderOrFile: 'monitor-spa-frontend/dist/monitor-spa-frontend'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/prod/monitor-spa-frontend.zip'
+    replaceExistingArchive: true
+
+# publish
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts: monitor.spa.frontend'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Deployment'
+    publishLocation: 'Container'

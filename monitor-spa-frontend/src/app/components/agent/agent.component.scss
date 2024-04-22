@@ -1,0 +1,16 @@
+.agent {
+  display: flex;
+  height: 50px; // figma
+
+  &__picture {
+    width: 50px; // figma
+    margin-right: 15px; // figma
+  }
+
+  &__first-name,
+  &__last-name {
+    color: #333333; // figma
+    font-weight: bold; //figma
+    font-size: 22px; // figma
+  }
+}
